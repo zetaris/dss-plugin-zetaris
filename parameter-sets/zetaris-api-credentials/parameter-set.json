@@ -53,29 +53,25 @@
     ],
 
     "params": [
-        {
-            "name": "parameter2",
-            "type": "INT",
-            "defaultValue" : 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(self.config()['parameter2'])
-            */
+         {
+            "name": "username",
+            "label": "Username",
+            "description": "Zetaris username",
+            "type": "STRING",
+            "mandatory" : true
         },
-
-        /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
         {
-            "name": "parameter8",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                }
-            ]
+            "name": "password",
+            "label": "Password",
+            "description": "Zetaris password",
+            "type": "PASSWORD",
+            "mandatory" : false
+        },
+        {
+            "name": "override_url",
+            "label": "Zetaris API URL",
+            "type": "STRING",
+            "description": "(Optional) This URL overrides what is defined in the plugin's parameters section. It must end with \"zetaris.com\""
         }
     ]
 }
