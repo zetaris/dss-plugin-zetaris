@@ -35,12 +35,11 @@
             "mandatory": true
         },
         {
-            "name": "parameter2",
-            "type": "INT",
-            "defaultValue" : 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(self.config()['parameter2'])
-            */
+            "name": "microstrategy_project",
+            "label": "MicroStrategy Project",
+            "description": "",
+            "type": "PRESET",
+            "parameterSetId": "microstrategy-project"
         },
 
         /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
