@@ -36,40 +36,6 @@
             "type": "PRESET",
             "parameterSetId": "zetaris-api-credentials"
         },
-/*        {
-            "name": "zetaris_project",
-            "label": "Zetaris Project",
-            "description": "",
-            "type": "PRESET",
-            "parameterSetId": "zetaris-project"
-        }
-        {
-            "name": "selected_project_id",
-            "label": "Select the object",
-            "description": "",
-            "type": "SELECT",
-            "visibilityCondition": false,
-            "getChoicesFromPython": true
-        },
-        {
-            "name": "destination",
-            "label": "Destination",
-            "description": "",
-            "type": "SELECT",
-            "selectChoices":[
-                {"value": "shared_reports", "label": "Shared Reports"},
-                {"value": "my_reports", "label": "My Reports"}
-            ],
-            "defaultValue": "my_reports"
-        },
-        {
-            "name": "selected_folder_id",
-            "label": "Folder",
-            "description": "",
-            "type": "SELECT",
-            "visibilityCondition": "model.destination=='shared_reports'",
-            "getChoicesFromPython": true
-        },*/
         {
             "name": "dataset_name",
             "label": "Enter the SQL query",
@@ -83,24 +49,31 @@
             "description": "(necessary for debugging mode)",
             "type": "BOOLEAN",
             "mandatory": false
-        }/* ,
-
-        /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
-       /* {
-            "name": "obj_Zetaris",
-            "label": "VDP and VDM in Zetaris",
+        },
+        {
+            "name": "query",
+            "label": "Zetaris query",
+            "description": "Example: SELECT c_name, c_cust_key FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
+            "type": "TEXTAREA",
+            "mandatory" : true
+        },
+        {
+            "name": "result_format",
+            "label": "Choose the output format:",
             "type": "SELECT",
             "selectChoices": [
                 {
-                    "value": "val_x",
-                    "label": "display name for val_x"
+                    "value": "readable",
+                    "label": "Readable with columns"
                 },
                 {
-                    "value": "val_y",
-                    "label": "display name for val_y"
+                    "value": "json",
+                    "label": "JSON"
                 }
-            ]
-        }*/
+            ],
+            "mandatory": true,
+            "defaultValue": "readable"
+        }
     ]
 }
 
