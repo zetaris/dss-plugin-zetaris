@@ -1,7 +1,5 @@
 # dss-plugin-zetaris
-**Custom data input from the Zetaris Data Preparation Studio
-**
-First time setup
+**Custom data input from the Zetaris Data Preparation Studio**
 
 **Plugin settings**
 
