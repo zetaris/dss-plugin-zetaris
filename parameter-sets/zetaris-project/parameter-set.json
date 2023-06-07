@@ -14,7 +14,7 @@
             "label": "Zetaris project Name",
             "description": "",
             "type": "STRING",
-            "mandatory" : true
+            "mandatory" : false
         }
     ]
 }
