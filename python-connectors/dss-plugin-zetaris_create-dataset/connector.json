@@ -2,7 +2,7 @@
 {
     "meta" : {
         // label: name of the dataset type as displayed, should be short
-        "label": "Custom dataset dss-plugin-zetaris_create-dataset",
+        "label": "Custom dataset from Zetaris",
 
         // description: longer string to help end users understand what this dataset type is
         "description": "",
@@ -83,10 +83,10 @@
             "description": "(necessary for debugging mode)",
             "type": "BOOLEAN",
             "mandatory": false
-        },
+        }/* ,
 
         /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
-        {
+       /* {
             "name": "obj_Zetaris",
             "label": "VDP and VDM in Zetaris",
             "type": "SELECT",
@@ -100,7 +100,7 @@
                     "label": "display name for val_y"
                 }
             ]
-        }
+        }*/
     ]
 }
 
