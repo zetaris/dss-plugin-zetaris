@@ -37,13 +37,6 @@
             "parameterSetId": "zetaris-api-credentials"
         },
         {
-            "name": "dataset_name",
-            "label": "Enter the SQL query",
-            "description": "",
-            "type": "STRING",
-            "mandatory": true
-        },
-        {
             "name": "generate_verbose_logs",
             "label": "Verbose logging",
             "description": "(necessary for debugging mode)",
