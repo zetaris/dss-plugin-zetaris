@@ -72,7 +72,7 @@
         },*/
         {
             "name": "dataset_name",
-            "label": "Dataset (cube) name",
+            "label": "Enter the SQL query",
             "description": "",
             "type": "STRING",
             "mandatory": true
