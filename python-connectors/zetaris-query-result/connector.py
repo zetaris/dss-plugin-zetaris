@@ -57,7 +57,7 @@ class CustomExporter(Connector):
         generate_verbose_logs = config.get("generate_verbose_logs", False)
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
-        Z.execute_select(self.query_param ,100)
+
 
 
         if not (self.username and self.base_url):
