@@ -126,15 +126,7 @@ class ZstrSession():
             for i in range(2,max_pages+1):
                 page_data=page_sql_query(query_token,pageLimit,i)
                 data += page_data['records']
-            print('Query Execution Successful')
-            save_csv = input("Do you want to save the data in a CSV file? (yes/no): ")
-            if save_csv.lower() == "yes":
-                file_name= input("Enter the file name (eg: filename.csv): ")
-                file_path= input("Enter the file path (eg: /users/zetaris/test/): ")
-                self.save_results(data,file_path,file_name)
-            elif save_csv.lower()=="no":
-                print('Here is the preview of your result:\n--------------\n')
-                print(data)
+            print(data)
         except Exception as e:
             print(e)
 
