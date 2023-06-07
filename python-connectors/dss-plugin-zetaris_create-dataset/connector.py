@@ -56,8 +56,9 @@ class CustomExporter(Exporter):
         self.password = config["zetaris_api"].get("password", '')
         generate_verbose_logs = config.get("generate_verbose_logs", False)
         self.upload_session_id = None
-        self.session = MstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
-        self.project_id, self.folder_id = self.get_ui_browse_results(config)
+        Z = ZstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
+        Z.execute_select("select * from azure_mssql.customer limit 10",100)
+        "self.project_id, self.folder_id = self.get_ui_browse_results(config)
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(
