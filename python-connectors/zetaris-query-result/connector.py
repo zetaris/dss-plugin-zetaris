@@ -1,8 +1,6 @@
 # This file is the actual code for the custom Python dataset dss-plugin-zetaris_create-dataset
 
 # import the base class for the custom dataset
-from six.moves import xrange
-from dataiku.connector import Connector 
 
 """
 A custom Python dataset is a subclass of Connector.
@@ -17,14 +15,16 @@ from numpy import isnan
 from zstr_session import ZstrSession, get_base_url
 
 import dataiku
-from dataiku.exporter import Exporter
+from dataiku.connector import Connector
+
+import json
 
 
 logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
 
-class CustomExporter(Exporter):
+class CustomExporter(Connector):
     """
     The methods will be called like this:
        __init__
@@ -37,23 +37,20 @@ class CustomExporter(Exporter):
        close
     """
 
-    def __init__(self, config, plugin_config):
+    def __init__(self, config):
         """
         :param config: the dict of the configuration of the object
         :param plugin_config: contains the plugin settings
                 "self.project_id, self.folder_id = self.get_ui_browse_results(config)
         """
+        Connector.__init__(self, config)
         self.row_buffer = []
         self.buffer_size = 5000
-        logger.info("Starting Zetaris exporter v1.3.0")
+        logger.info("Starting Zetaris exporter v1.1.0")
         # Plugin settings
-
-        self.base_url = get_base_url(config, plugin_config)
-        self.project_name = config["zetaris_project"].get("project_name", None)
-        self.project_id = ""  # the project id, obtained through a later request
-        self.dataset_name = str(config.get("dataset_name", None)).replace(" (created by Dataiku DSS)", "") + " (created by Dataiku DSS)"
-        self.dataset_id = ""  # the dataset id, obtained at creation or on update
-        self.table_name = "dss_data"
+        self.QUERY = self.config.get("query", "")
+        self.RESULT_FORMAT = self.config.get("result_format")
+        self.base_url = config["zetaris_api"].get("server_url", None)
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
         self.query_param = config.get("dataset_name", False)
@@ -73,85 +70,48 @@ class CustomExporter(Exporter):
             )
             raise ValueError("username and base_url must be filled")
 
-    def get_ui_browse_results(self, config):
-        import json
-        folder_id = None
-        project_id = config.get("selected_project_id", None)
-        selected_folder_id = json.loads(config.get("selected_folder_id", "{}"))
-        folder_ids = selected_folder_id.get("ids")
-        if folder_ids:
-            folder_id = folder_ids[-1]
-        if config.get("destination", "my_reports") == "my_reports":
-            folder_id = None
-        return project_id, folder_id
+    def get_read_schema(self):
 
-    def open(self, schema):
-        self.dss_columns_types = get_dss_columns_types(schema)
-        (self.schema, dtypes, parse_dates_columns) = dataiku.Dataset.get_dataframe_schema_st(schema["columns"])
+        if self.RESULT_FORMAT == 'json':
+            return {
+                "columns": [
+                    {"name": "json", "type": "object"}
+                ]
+            }
 
-        # Prevent problems when reading int
-        # If we don't use it too, the initialization of the cube does not have the same dtypes as the read data (in write_row)
-        # and we get mismatchs when updating
-        # if dtypes is not None:
+        return None
 
-        # Get a project list, search for our project in the list, get the project ID for future API calls.
-        if not self.project_id:
-            self.project_id = self.session.get_project_id(self.project_name)
+    def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
+                      partition_id=None, records_limit=-1):
 
-        # Search for objects of type 3 (datasets/cubes) with the right name
-        logger.info("Searching for existing '{}' dataset in project '{}'.".format(self.dataset_name, self.project_id))
-        self.dataset_id = self.session.get_dataset_id(self.project_id, self.dataset_name, folder_id=self.folder_id)
+        results = self.execute_select(self.QUERY , 100) 
 
-        # No result, create a new dataset
-        if not self.dataset_id:
-            logger.info("Creating dataset '{}'".format(self.dataset_name))
-            self.dataset_id = self.session.create_dataset(
-                self.project_id,
-                self.dataset_name,
-                self.table_name,
-                self.schema,
-                self.dss_columns_types,
-                self.folder_id
-            )
+        log("records_limit: %i" % records_limit)
+        log("length initial request: %i" % len(results.get('records')))
 
-        # Replace data (drop existing) by sending the empty dataframe, with correct schema
-        self.session.update_dataset([], self.project_id, self.dataset_id, self.table_name, self.schema, self.dss_columns_types, update_policy='replace')
-        self.upload_session_id = self.session.open_upload_session(self.project_id, self.dataset_id, self.table_name, schema, self.dss_columns_types, update_policy='replace', can_raise=True)
+        n = 0
 
-    def write_row(self, row):
-        row_dict = {}
-        for (column_name, cell_value, dtype) in zip(self.schema, row, self.dss_columns_types):
-            if (type(cell_value) == float and isnan(cell_value)):
-                cell_value = None
-            row_dict[column_name] = cell_value
-        self.row_buffer.append(row_dict)
+        for obj in results.get('records'):
+            n = n + 1
+            if records_limit < 0 or n <= records_limit:
+                yield self._format_row_for_dss(obj)
 
-        if len(self.row_buffer) > self.buffer_size:
-            logger.info("Sending {} rows to Zetaris.".format(self.buffer_size))
-            self.flush_data(self.row_buffer)
-            self.row_buffer = []
+        next = results.get('nextRecordsUrl', None)
+        if records_limit >= 0 and n >= records_limit:
+            next = None
 
-    def close(self):
-        logger.info("Sending {} final rows to Zetaris.".format(len(self.row_buffer)))
-        self.flush_data(self.row_buffer)
-        logger.info("Logging out.")
-        self.session.publish_upload_session()
-        self.session.upload_session_publish_status()
-        response = self.session.get(url=self.base_url+"/auth/logout")
-        logger.info("Logout returned status {}".format(response.status_code))
+        while next:
+            results = self.client.make_api_call(next)
+            for obj in results.get('records'):
+                n = n + 1
+                if records_limit < 0 or n <= records_limit:
+                    yield self._format_row_for_dss(obj)
+            next = results.get('nextRecordsUrl', None)
+            if records_limit >= 0 and n >= records_limit:
+                next = None
 
-    def flush_data(self, rows):
-        try:
-            self.session.upload_session_push_rows(rows)
-        except Exception as error_message:
-            logger.exception("Dataset update issue: {}".format(error_message))
-            raise error_message
-
-
-def get_dss_columns_types(schema):
-    columns = schema.get("columns", [])
-    columns_types = []
-    for column in columns:
-        column_type = column.get("type")
-        columns_types.append(column_type)
-    return columns_types
+    def _format_row_for_dss(self, row):
+        if self.RESULT_FORMAT == 'json':
+            return {"json": json.dumps(row)}
+        else:
+            return unnest_json(row)
