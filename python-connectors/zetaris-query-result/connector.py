@@ -54,7 +54,6 @@ class CustomExporter(Connector):
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
         self.upload_session_id = None
-        self.generate_verbose_logs = self.config.get("generate_verbose_logs")
         Z = ZstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
 
 
