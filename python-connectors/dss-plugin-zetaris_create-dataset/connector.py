@@ -41,6 +41,7 @@ class CustomExporter(Exporter):
         """
         :param config: the dict of the configuration of the object
         :param plugin_config: contains the plugin settings
+                "self.project_id, self.folder_id = self.get_ui_browse_results(config)
         """
         self.row_buffer = []
         self.buffer_size = 5000
@@ -58,7 +59,7 @@ class CustomExporter(Exporter):
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
         Z.execute_select("select * from azure_mssql.customer limit 10",100)
-        "self.project_id, self.folder_id = self.get_ui_browse_results(config)
+
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(
