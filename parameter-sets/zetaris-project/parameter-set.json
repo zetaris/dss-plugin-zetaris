@@ -10,13 +10,6 @@
     ],
     "params": [
         {
-            "name": "query_param",
-            "label": "Zetaris query string",
-            "description": "",
-            "type": "STRING",
-            "mandatory" : true
-        },
-        {
             "name": "project_name",
             "label": "Zetaris project Name",
             "description": "",
