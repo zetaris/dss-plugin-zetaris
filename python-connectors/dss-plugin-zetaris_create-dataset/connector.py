@@ -55,10 +55,11 @@ class CustomExporter(Exporter):
         self.table_name = "dss_data"
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
+        self.query_param = config["zetaris_project"].get("query_param", '')
         generate_verbose_logs = config.get("generate_verbose_logs", False)
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
-        Z.execute_select("select * from azure_mssql.customer limit 10",100)
+        Z.execute_select(self.query_param ,100)
 
 
         if not (self.username and self.base_url):

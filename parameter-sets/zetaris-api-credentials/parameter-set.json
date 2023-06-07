@@ -42,16 +42,6 @@
        For the full list and for more details, see the documentation: https://doc.dataiku.com/dss/latest/plugins/reference/params.html
     */
 
-    "pluginParams": [
-        {
-            "name": "parameter1",
-            "label": "User-readable name",
-            "type": "STRING",
-            "description": "Some documentation for parameter1",
-            "mandatory": true
-        }
-    ],
-
     "params": [
          {
             "name": "username",
