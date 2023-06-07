@@ -9,7 +9,7 @@ Created on Fri Jun  2 10:33:33 2023
 import requests
 import json
 import csv
-from ZstrAuth import ZstrAuth
+from zstr_auth import ZstrAuth
 import pandas as pd
 
 
@@ -137,3 +137,9 @@ class ZstrSession():
                 print(data)
         except Exception as e:
             print(e)
+    
+    def get_base_url(config, plugin_config):
+    microstrategy_api = config.get("zetaris_api", {})
+    override_url = microstrategy_api.get("override_url")
+    base_url = plugin_config.get("base_url", None)
+    return override_url or base_url
