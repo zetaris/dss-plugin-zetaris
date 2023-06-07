@@ -96,9 +96,6 @@ class CustomExporter(Connector):
             if records_limit < 0 or n <= records_limit:
                 yield self._format_row_for_dss(obj)
 
-        next = results.get('nextRecordsUrl', None)
-        if records_limit >= 0 and n >= records_limit:
-            next = None
 
         while next:
             results = self.client.make_api_call(next)
@@ -106,9 +103,7 @@ class CustomExporter(Connector):
                 n = n + 1
                 if records_limit < 0 or n <= records_limit:
                     yield self._format_row_for_dss(obj)
-            next = results.get('nextRecordsUrl', None)
-            if records_limit >= 0 and n >= records_limit:
-                next = None
+
 
     def _format_row_for_dss(self, row):
         if self.RESULT_FORMAT == 'json':
