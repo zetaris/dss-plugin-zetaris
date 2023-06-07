@@ -42,7 +42,7 @@
             "description": "",
             "type": "PRESET",
             "parameterSetId": "zetaris-project"
-        },*/
+        }
         {
             "name": "selected_project_id",
             "label": "Select the object",
@@ -69,7 +69,7 @@
             "type": "SELECT",
             "visibilityCondition": "model.destination=='shared_reports'",
             "getChoicesFromPython": true
-        },
+        },*/
         {
             "name": "dataset_name",
             "label": "Dataset (cube) name",
@@ -87,7 +87,8 @@
 
         /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
         {
-            "name": "parameter8",
+            "name": "obj_Zetaris",
+            "label": "VDP and VDM in Zetaris",
             "type": "SELECT",
             "selectChoices": [
                 {
