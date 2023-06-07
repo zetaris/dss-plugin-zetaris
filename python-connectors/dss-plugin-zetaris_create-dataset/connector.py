@@ -2,7 +2,7 @@
 
 # import the base class for the custom dataset
 from six.moves import xrange
-from dataiku.connector import Connector
+from dataiku.connector import Connector ,get_base_url
 
 """
 A custom Python dataset is a subclass of Connector.
