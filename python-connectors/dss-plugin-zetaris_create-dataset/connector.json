@@ -30,18 +30,18 @@
     */
     "params": [
         {
-            "name": "microstrategy_api",
-            "label": "MicroStrategy API credentials",
+            "name": "zetaris_api",
+            "label": "Zetaris API credentials",
             "description": "",
             "type": "PRESET",
-            "parameterSetId": "microstrategy-api-credentials"
+            "parameterSetId": "zetaris-api-credentials"
         },
         {
-            "name": "microstrategy_project",
-            "label": "MicroStrategy Project",
+            "name": "zetaris_project",
+            "label": "Zetaris Project",
             "description": "",
             "type": "PRESET",
-            "parameterSetId": "microstrategy-project"
+            "parameterSetId": "zetaris-project"
         },
         {
             "name": "selected_project_id",
