@@ -44,16 +44,16 @@ class CustomExporter(Exporter):
         """
         self.row_buffer = []
         self.buffer_size = 5000
-        logger.info("Starting MicroStrategy exporter v1.3.0")
+        logger.info("Starting Zetaris exporter v1.3.0")
         # Plugin settings
         self.base_url = get_base_url(config, plugin_config)
-        self.project_name = config["microstrategy_project"].get("project_name", None)
+        self.project_name = config["zetaris_project"].get("project_name", None)
         self.project_id = ""  # the project id, obtained through a later request
         self.dataset_name = str(config.get("dataset_name", None)).replace(" (created by Dataiku DSS)", "") + " (created by Dataiku DSS)"
         self.dataset_id = ""  # the dataset id, obtained at creation or on update
         self.table_name = "dss_data"
-        self.username = config["microstrategy_api"].get("username", None)
-        self.password = config["microstrategy_api"].get("password", '')
+        self.username = config["zetaris_api"].get("username", None)
+        self.password = config["zetaris_api"].get("password", '')
         generate_verbose_logs = config.get("generate_verbose_logs", False)
         self.upload_session_id = None
         self.session = MstrSession(self.base_url, self.username, self.password, generate_verbose_logs=generate_verbose_logs)
@@ -123,12 +123,12 @@ class CustomExporter(Exporter):
         self.row_buffer.append(row_dict)
 
         if len(self.row_buffer) > self.buffer_size:
-            logger.info("Sending {} rows to MicroStrategy.".format(self.buffer_size))
+            logger.info("Sending {} rows to Zetaris.".format(self.buffer_size))
             self.flush_data(self.row_buffer)
             self.row_buffer = []
 
     def close(self):
-        logger.info("Sending {} final rows to MicroStrategy.".format(len(self.row_buffer)))
+        logger.info("Sending {} final rows to Zetaris.".format(len(self.row_buffer)))
         self.flush_data(self.row_buffer)
         logger.info("Logging out.")
         self.session.publish_upload_session()
