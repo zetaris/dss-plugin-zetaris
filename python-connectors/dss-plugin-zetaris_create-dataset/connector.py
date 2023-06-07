@@ -47,7 +47,8 @@ class CustomExporter(Exporter):
         self.buffer_size = 5000
         logger.info("Starting Zetaris exporter v1.3.0")
         # Plugin settings
-        self.base_url = get_base_url(config, plugin_config)
+
+        self.base_url = config["zetaris_api"].get("server_url", None)
         self.project_name = config["zetaris_project"].get("project_name", None)
         self.project_id = ""  # the project id, obtained through a later request
         self.dataset_name = str(config.get("dataset_name", None)).replace(" (created by Dataiku DSS)", "") + " (created by Dataiku DSS)"
