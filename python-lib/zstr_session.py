@@ -138,5 +138,9 @@ class ZstrSession():
         except Exception as e:
             print(e)
 
-
+def get_base_url(config, plugin_config):
+    microstrategy_api = config.get("microstrategy_api", {})
+    override_url = microstrategy_api.get("override_url")
+    base_url = plugin_config.get("base_url", None)
+    return override_url or base_url
 
