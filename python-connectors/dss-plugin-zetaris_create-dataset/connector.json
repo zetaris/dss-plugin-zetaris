@@ -36,16 +36,16 @@
             "type": "PRESET",
             "parameterSetId": "zetaris-api-credentials"
         },
-        {
+/*        {
             "name": "zetaris_project",
             "label": "Zetaris Project",
             "description": "",
             "type": "PRESET",
             "parameterSetId": "zetaris-project"
-        },
+        },*/
         {
             "name": "selected_project_id",
-            "label": "Select the project",
+            "label": "Select the object",
             "description": "",
             "type": "SELECT",
             "visibilityCondition": false,
