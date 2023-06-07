@@ -55,6 +55,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password)
+        results = Z.execute_select(self.QUERY , 100)
 
 
 
