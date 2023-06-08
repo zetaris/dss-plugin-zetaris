@@ -39,7 +39,7 @@
         {
             "name": "query",
             "label": "Zetaris query",
-            "description": "Example: SELECT c_name, c_cust_key FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
+            "description": "Example: SELECT c_name, c_custkey FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
             "type": "TEXTAREA",
             "mandatory" : true
         }
