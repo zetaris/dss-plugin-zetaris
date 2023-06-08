@@ -77,14 +77,6 @@ class CustomExporter(Connector):
 
 
 
-    def get_read_schema(self):
-        # The Zetaris connector does not have a fixed schema, since each
-        # sheet has its own (varying) schema.
-        #
-        # Better let DSS handle this
-        return None
-
-
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                             partition_id=None, records_limit = -1):
         """
