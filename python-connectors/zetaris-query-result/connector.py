@@ -120,13 +120,8 @@ class MyCustomDatasetWriter(CustomDatasetWriter):
         self.dataset_schema = dataset_schema
         self.dataset_partitioning = dataset_partitioning
         self.partition_id = partition_id
-
         self.buffer = []
 
-#        columns = [col["name"] for col in dataset_schema["columns"]]
-
-#        if parent.result_format == 'first-row-header':
-#            self.buffer.append(columns)
 
 
     def write_row(self, row):
@@ -136,6 +131,3 @@ class MyCustomDatasetWriter(CustomDatasetWriter):
         #     print (col, val)
 
         self.buffer.append(row)
-
-        # if len(self.buffer) > 50:
-        #     self.flush()
