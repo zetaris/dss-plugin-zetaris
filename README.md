@@ -9,6 +9,4 @@ Parameter set: API credentials
 
 Define sets of username and password to be used by your users.
 
-Parameter set: project name
 
-Define sets of project names to be used by your users.

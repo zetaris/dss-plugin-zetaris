@@ -5,6 +5,7 @@ Created on Fri Jun  2 10:33:33 2023
 
 @author: rainathomas
 """
+#This module will be used to establish a session for every Zetaris API call. To start with we will be using the execute_select function only and the code will be expanded eventually to apply the remaining modules
 
 import requests
 import json

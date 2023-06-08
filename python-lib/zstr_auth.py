@@ -5,6 +5,7 @@ Created on Fri Jun  2 10:35:05 2023
 
 @author: rainathomas
 """
+# This module receives the API parameters and then generates a token and validates the login with Zetaris credentials
 
 import requests
 import logging
