@@ -79,7 +79,12 @@ class CustomExporter(Connector):
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                          partition_id=None):
-        raise Exception("Unimplemented")
+        if self.result_format == 'json':
+
+            raise Exception('JSON format not supported in write mode')
+
+        return MyCustomDatasetWriter(self.config, self, dataset_schema, dataset_partitioning, partition_id)
+
 
 
     def get_partitioning(self):
