@@ -12,7 +12,7 @@ Note: the name of the class itself is not relevant.
 """
 import logging
 from numpy import isnan
-from zstr_session import ZstrSession, get_base_url
+from zstr_session import ZstrSession
 
 import dataiku
 from dataiku.connector import Connector
