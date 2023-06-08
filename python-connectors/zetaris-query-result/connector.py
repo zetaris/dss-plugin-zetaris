@@ -71,14 +71,6 @@ class CustomExporter(Connector):
             raise ValueError("username and base_url must be filled")
 
     def get_read_schema(self):
-
-        if self.RESULT_FORMAT == 'json':
-            return {
-                "columns": [
-                    {"name": "json", "type": "object"}
-                ]
-            }
-
         return None
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
@@ -105,9 +97,22 @@ class CustomExporter(Connector):
                 if records_limit < 0 or n <= records_limit:
                     yield self._format_row_for_dss(obj)
 
+    def get_writer(self, dataset_schema=None, dataset_partitioning=None,
+                         partition_id=None):
+        raise Exception("Unimplemented")
 
-    def _format_row_for_dss(self, row):
-        if self.RESULT_FORMAT == 'json':
-            return {"json": json.dumps(row)}
-        else:
-            return unnest_json(row)
+
+    def get_partitioning(self):
+        raise Exception("Unimplemented")
+
+
+    def list_partitions(self, partitioning):
+        return []
+
+
+    def partition_exists(self, partitioning, partition_id):
+        raise Exception("unimplemented")
+
+
+    def get_records_count(self, partitioning=None, partition_id=None):
+        raise Exception("unimplemented")
