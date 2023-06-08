@@ -88,8 +88,7 @@ class CustomExporter(Connector):
         The dataset schema and partitioning are given for information purpose.
         """
         results = self.results
-        for i in results(1,10):
-            yield { "first_col" : str(i), "my_string" : "Yes" }
+
 
 
 
