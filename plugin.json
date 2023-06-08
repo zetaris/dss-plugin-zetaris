@@ -5,7 +5,7 @@
         "label": "Import data from Zetaris",
         "description": "Import Zetaris data",
         "author": "Zetaris (Raina Thomas, Harshal Shah)",
-        "icon": "icon-forward",
+        "icon": "icon-bolt",
         "licenseInfo": "Apache Software License",
         "supportLevel": "TIER2_SUPPORT",
         "url": "www.zetaris.com",

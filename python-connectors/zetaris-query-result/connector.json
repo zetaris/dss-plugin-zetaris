@@ -37,13 +37,6 @@
             "parameterSetId": "zetaris-api-credentials"
         },
         {
-            "name": "generate_verbose_logs",
-            "label": "Verbose logging",
-            "description": "(necessary for debugging mode)",
-            "type": "BOOLEAN",
-            "mandatory": false
-        },
-        {
             "name": "query",
             "label": "Zetaris query",
             "description": "Example: SELECT c_name, c_cust_key FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",

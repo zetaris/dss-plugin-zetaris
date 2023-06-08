@@ -55,13 +55,14 @@
             "label": "Password",
             "description": "Zetaris password",
             "type": "PASSWORD",
-            "mandatory" : false
+            "mandatory" : true
         },
         {
             "name": "server_url",
             "label": "Zetaris API URL",
             "type": "STRING",
-            "description": "This URL overrides what is defined in the plugin's parameters section. It must end with \"zetaris.com\""
+            "description": "This URL overrides what is defined in the plugin's parameters section. It must end with \"zetaris.com\"",
+            "mandatory" : true
         }
     ]
 }
