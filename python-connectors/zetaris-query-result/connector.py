@@ -118,21 +118,6 @@ class CustomExporter(Connector):
         return MyCustomDatasetWriter(self.config, self, dataset_schema, dataset_partitioning, partition_id)
 
 
-
-    def get_partitioning(self):
-        raise Exception("Unimplemented")
-
-
-    def list_partitions(self, partitioning):
-        return []
-
-
-    def partition_exists(self, partitioning, partition_id):
-        raise Exception("unimplemented")
-
-
-    def get_records_count(self, partitioning=None, partition_id=None):
-        raise Exception("unimplemented")
  
 
 class MyCustomDatasetWriter(CustomDatasetWriter):
@@ -159,6 +144,7 @@ class MyCustomDatasetWriter(CustomDatasetWriter):
         #     print (col, val)
 
         self.buffer.append(row)
+        print(self.buffer)
 
         # if len(self.buffer) > 50:
         #     self.flush()
