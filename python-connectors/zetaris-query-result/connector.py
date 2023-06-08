@@ -18,7 +18,7 @@ import dataiku
 from dataiku.connector import Connector
 
 import json
-from utils import unnest_json, log
+
 
 logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
 logger = logging.getLogger()
