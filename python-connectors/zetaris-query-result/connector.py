@@ -149,7 +149,7 @@ class MyCustomDatasetWriter(CustomDatasetWriter):
 #        columns = [col["name"] for col in dataset_schema["columns"]]
 
 #        if parent.result_format == 'first-row-header':
-            self.buffer.append(columns)
+#            self.buffer.append(columns)
 
 
     def write_row(self, row):
