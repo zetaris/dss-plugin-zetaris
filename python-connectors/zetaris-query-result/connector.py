@@ -15,10 +15,10 @@ from numpy import isnan
 from zstr_session import ZstrSession
 
 import dataiku
-from dataiku.connector import Connector
+from dataiku.connector import Connector ,CustomDatasetWriter
 
 import json
-from slugify import slugify
+
 from collections import OrderedDict
 
 logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
@@ -75,17 +75,6 @@ class CustomExporter(Connector):
     def get_read_schema(self):
         return None
 
-    def get_unique_slug(self, string):
-        string = slugify(string, max_length=25, separator="_", lowercase=False)
-        if string == '':
-            string = 'none'
-        test_string = string
-        i = 0
-        while test_string in self.list_unique_slugs:
-            i += 1
-            test_string = string + '_' + str(i)
-        self.list_unique_slugs.append(test_string)
-        return test_string
 
 
     def get_read_schema(self):
@@ -112,26 +101,11 @@ class CustomExporter(Connector):
             columns = rows[0]
         except IndexError as e:
             columns = []
-        columns_slug = list(map(self.get_unique_slug, columns))
 
-        if self.result_format == 'first-row-header':
-
-            for row in rows[1:]:
-                yield OrderedDict(zip(columns_slug, row))
-
-        elif self.result_format == 'no-header':
 
             for row in rows:
                 yield OrderedDict(zip(range(1, len(columns) + 1), row))
 
-        elif self.result_format == 'json':
-
-            for row in rows:
-                yield {"json": json.dumps(row)}
-
-        else:
-
-            raise Exception("Unimplemented")
 
 
 
@@ -159,3 +133,32 @@ class CustomExporter(Connector):
 
     def get_records_count(self, partitioning=None, partition_id=None):
         raise Exception("unimplemented")
+ 
+
+class MyCustomDatasetWriter(CustomDatasetWriter):
+    def __init__(self, config, parent, dataset_schema, dataset_partitioning, partition_id):
+        CustomDatasetWriter.__init__(self)
+        self.parent = parent
+        self.config = config
+        self.dataset_schema = dataset_schema
+        self.dataset_partitioning = dataset_partitioning
+        self.partition_id = partition_id
+
+        self.buffer = []
+
+#        columns = [col["name"] for col in dataset_schema["columns"]]
+
+#        if parent.result_format == 'first-row-header':
+            self.buffer.append(columns)
+
+
+    def write_row(self, row):
+
+        # Example of dataset_schema: {u'userModified': False, u'columns': [{u'timestampNoTzAsDate': False, u'type': u'string', u'name': u'condition', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'string', u'name': u'weather', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'double', u'name': u'temperature', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'bigint', u'name': u'humidity', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'date', u'name': u'date_update', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'date', u'name': u'date_add', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'string', u'name': u'ville', u'maxLength': -1}, {u'timestampNoTzAsDate': False, u'type': u'string', u'name': u'source', u'maxLength': -1}]}
+        # for (col, val) in zip(self.dataset_schema["columns"], row):
+        #     print (col, val)
+
+        self.buffer.append(row)
+
+        # if len(self.buffer) > 50:
+        #     self.flush()
