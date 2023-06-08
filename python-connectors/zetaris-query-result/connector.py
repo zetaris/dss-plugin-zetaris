@@ -57,7 +57,7 @@ class CustomExporter(Connector):
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
         print(self.results) 
-        self.list_unique_slugs = []
+
 
 
 
@@ -96,7 +96,7 @@ class CustomExporter(Connector):
         The dataset schema and partitioning are given for information purpose.
         """
 
-        rows = self.results()
+        rows = self.results
         try:
             columns = rows[0]
         except IndexError as e:
