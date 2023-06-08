@@ -55,7 +55,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
-
+        print(self.results) 
 
 
 
@@ -75,7 +75,7 @@ class CustomExporter(Connector):
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1 , results =None):
-            print (self.results) 
+         return []
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                          partition_id=None):
