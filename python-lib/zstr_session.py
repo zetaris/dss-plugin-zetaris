@@ -92,7 +92,7 @@ class ZstrSession(object):
         "pageNumber": pageNumber
       }
       response = requests.get(url=f'{self.server_url}/api/v1.0/query/sql/page',headers=auth,params=params)
-      response = json.loads(response.text)
+   #   response = json.loads(response.text)
       return response
     
     def close_sql_query(self , query_token:str):
