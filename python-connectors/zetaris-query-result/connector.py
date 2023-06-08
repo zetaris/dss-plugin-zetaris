@@ -55,12 +55,7 @@ class CustomExporter(Connector):
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
         Z = ZstrSession(self.base_url, self.username, self.password)
-        self.results = Z.execute_select(self.QUERY , 100)
-        print(self.results) 
-
-
-
-
+        self.results = Z.execute_select(self.QUERY) 
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(
@@ -76,23 +71,19 @@ class CustomExporter(Connector):
         return None
 
 
-
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
-                            partition_id=None, records_limit = -1):
-        """
-        The main reading method.
+                      partition_id=None, records_limit=-1,results=None):
 
-        Returns a generator over the rows of the dataset (or partition)
-        Each yielded row must be a dictionary, indexed by column name.
-
-        The dataset schema and partitioning are given for information purpose.
-        """
-        results = self.results
-
-
-
-
-
+        if results is None:
+            results = self.results
+            processed_data = []
+            for row in results:
+                processed_row = {}
+                for key, value in row.items():
+                    processed_value = value
+                    processed_row[key] = processed_value
+                processed_data.append(processed_row)
+            return processed_data
 
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
