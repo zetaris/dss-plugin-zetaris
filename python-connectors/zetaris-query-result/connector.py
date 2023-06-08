@@ -55,7 +55,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password)
-        results = Z.execute_select(self.QUERY , 100)
+        self.results = Z.execute_select(self.QUERY , 100)
         print(results)
 
 
@@ -84,7 +84,7 @@ class CustomExporter(Connector):
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1):
 
-
+        results = self.results
 
         log("records_limit: %i" % records_limit)
         log("length initial request: %i" % len(results.get('records')))
