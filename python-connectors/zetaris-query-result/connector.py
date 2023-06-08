@@ -97,7 +97,7 @@ class CustomExporter(Connector):
         """
 
         rows = self.results
-
+        yield rows
 
 
 
