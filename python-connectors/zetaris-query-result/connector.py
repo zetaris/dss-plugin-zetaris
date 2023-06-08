@@ -96,8 +96,7 @@ class CustomExporter(Connector):
         The dataset schema and partitioning are given for information purpose.
         """
 
-        rows = self.results
-        yield rows
+
 
 
 
