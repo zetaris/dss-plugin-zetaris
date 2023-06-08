@@ -18,7 +18,8 @@ import dataiku
 from dataiku.connector import Connector
 
 import json
-
+from slugify import slugify
+from collections import OrderedDict
 
 logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
 logger = logging.getLogger()
@@ -56,6 +57,7 @@ class CustomExporter(Connector):
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
         print(self.results) 
+        self.list_unique_slugs = []
 
 
 
@@ -73,9 +75,65 @@ class CustomExporter(Connector):
     def get_read_schema(self):
         return None
 
+    def get_unique_slug(self, string):
+        string = slugify(string, max_length=25, separator="_", lowercase=False)
+        if string == '':
+            string = 'none'
+        test_string = string
+        i = 0
+        while test_string in self.list_unique_slugs:
+            i += 1
+            test_string = string + '_' + str(i)
+        self.list_unique_slugs.append(test_string)
+        return test_string
+
+
+    def get_read_schema(self):
+        # The Zetaris connector does not have a fixed schema, since each
+        # sheet has its own (varying) schema.
+        #
+        # Better let DSS handle this
+        return None
+
+
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
-                      partition_id=None, records_limit=-1 , results =None):
-         return []
+                            partition_id=None, records_limit = -1):
+        """
+        The main reading method.
+
+        Returns a generator over the rows of the dataset (or partition)
+        Each yielded row must be a dictionary, indexed by column name.
+
+        The dataset schema and partitioning are given for information purpose.
+        """
+
+        rows = self.results()
+        try:
+            columns = rows[0]
+        except IndexError as e:
+            columns = []
+        columns_slug = list(map(self.get_unique_slug, columns))
+
+        if self.result_format == 'first-row-header':
+
+            for row in rows[1:]:
+                yield OrderedDict(zip(columns_slug, row))
+
+        elif self.result_format == 'no-header':
+
+            for row in rows:
+                yield OrderedDict(zip(range(1, len(columns) + 1), row))
+
+        elif self.result_format == 'json':
+
+            for row in rows:
+                yield {"json": json.dumps(row)}
+
+        else:
+
+            raise Exception("Unimplemented")
+
+
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                          partition_id=None):
