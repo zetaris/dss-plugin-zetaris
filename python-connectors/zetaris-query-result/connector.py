@@ -18,7 +18,7 @@ import dataiku
 from dataiku.connector import Connector
 
 import json
-
+from utils import unnest_json, log
 
 logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
 logger = logging.getLogger()
@@ -56,7 +56,7 @@ class CustomExporter(Connector):
         self.upload_session_id = None
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
-        print(results)
+
 
 
 
@@ -82,12 +82,13 @@ class CustomExporter(Connector):
         return None
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
-                      partition_id=None, records_limit=-1):
+                      partition_id=None, records_limit=-1 , results =None):
 
-        results = self.results
+        if results is None :
+            results = self.results
 
-        log("records_limit: %i" % records_limit)
-        log("length initial request: %i" % len(results.get('records')))
+        logger.info("records_limit: %i" % records_limit)
+        logger.info("length initial request: %i" % len(results.get('records')))
 
         n = 0
 
