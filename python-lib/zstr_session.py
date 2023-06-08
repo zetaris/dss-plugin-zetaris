@@ -13,7 +13,7 @@ from zstr_auth import ZstrAuth
 import pandas as pd
 
 
-class ZstrSession(object):
+class ZstrSession():
     def __init__( self, server_url, username, password ):
         if not server_url:
             raise Exception("No valid URL to the for Microstrategy server has been selected")
