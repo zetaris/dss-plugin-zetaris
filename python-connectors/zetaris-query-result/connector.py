@@ -97,14 +97,7 @@ class CustomExporter(Connector):
         """
 
         rows = self.results
-        try:
-            columns = rows[0]
-        except IndexError as e:
-            columns = []
 
-
-            for row in rows:
-                yield OrderedDict(zip(range(1, len(columns) + 1), row))
 
 
 
