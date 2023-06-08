@@ -56,7 +56,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
-        print(self.results) 
+#        print(self.results) 
 
 
 
@@ -97,6 +97,7 @@ class CustomExporter(Connector):
         """
 
         rows = self.results
+        print(rows)
         try:
             columns = rows[0]
         except IndexError as e:
