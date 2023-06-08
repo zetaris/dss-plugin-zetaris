@@ -58,6 +58,8 @@ class CustomExporter(Connector):
         print(self.base_url)
         print(self.username)
         print(self.password)
+        print(self.QUERY)
+        print(self.RESULT_FORMAT)
 
 
 
