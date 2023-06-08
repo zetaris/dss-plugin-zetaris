@@ -86,7 +86,7 @@ class CustomExporter(Connector):
         if results is None :
             results = self.results
 
-        logger.info("records_limit: %i" % pageLimit)
+#        logger.info("records_limit: %i" % pageLimit)
         logger.info("length initial request: %i" % len(results.get('records')))
 
         n = 0
