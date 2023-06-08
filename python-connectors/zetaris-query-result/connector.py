@@ -75,27 +75,7 @@ class CustomExporter(Connector):
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1 , results =None):
-
-        if results is None :
-            results = self.results
-
-#        logger.info("records_limit: %i" % pageLimit)
-        logger.info("length initial request: %i" % len(results.get('records')))
-
-        n = 0
-
-        for obj in results.get('records'):
-            n = n + 1
-            if records_limit < 0 or n <= records_limit:
-                yield self._format_row_for_dss(obj)
-
-
-        while next:
-            results = self.client.make_api_call(next)
-            for obj in results.get('records'):
-                n = n + 1
-                if records_limit < 0 or n <= records_limit:
-                    yield self._format_row_for_dss(obj)
+            yield self.results
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                          partition_id=None):
