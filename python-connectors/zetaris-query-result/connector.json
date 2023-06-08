@@ -42,23 +42,6 @@
             "description": "Example: SELECT c_name, c_cust_key FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
             "type": "TEXTAREA",
             "mandatory" : true
-        },
-        {
-            "name": "result_format",
-            "label": "Choose the output format:",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "readable",
-                    "label": "Readable with columns"
-                },
-                {
-                    "value": "json",
-                    "label": "JSON"
-                }
-            ],
-            "mandatory": true,
-            "defaultValue": "readable"
         }
     ]
 }
