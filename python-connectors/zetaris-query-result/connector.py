@@ -56,7 +56,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY , 100)
-#        print(self.results) 
+        print(self.results) 
 
 
 
@@ -97,7 +97,6 @@ class CustomExporter(Connector):
         """
 
         rows = self.results
-        print(rows)
         try:
             columns = rows[0]
         except IndexError as e:
@@ -119,6 +118,21 @@ class CustomExporter(Connector):
         return MyCustomDatasetWriter(self.config, self, dataset_schema, dataset_partitioning, partition_id)
 
 
+
+    def get_partitioning(self):
+        raise Exception("Unimplemented")
+
+
+    def list_partitions(self, partitioning):
+        return []
+
+
+    def partition_exists(self, partitioning, partition_id):
+        raise Exception("unimplemented")
+
+
+    def get_records_count(self, partitioning=None, partition_id=None):
+        raise Exception("unimplemented")
  
 
 class MyCustomDatasetWriter(CustomDatasetWriter):
@@ -145,7 +159,6 @@ class MyCustomDatasetWriter(CustomDatasetWriter):
         #     print (col, val)
 
         self.buffer.append(row)
-        print(self.buffer)
 
         # if len(self.buffer) > 50:
         #     self.flush()
