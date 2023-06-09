@@ -2,8 +2,8 @@
     "id": "dss-plugin-zetaris",
     "version": "1.0.0",
     "meta": {
-        "label": "Import data from Zetaris",
-        "description": "Import Zetaris data",
+        "label": "Zetaris Data Expansion Kit",
+        "description": "Connect to Zetaris and access curated data objects",
         "author": "Zetaris (Raina Thomas, Harshal Shah)",
         "icon": "icon-bolt",
         "licenseInfo": "Apache Software License",
