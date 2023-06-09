@@ -2,7 +2,7 @@
 {
     "meta" : {
         // label: name of the dataset type as displayed, should be short
-        "label": "Custom dataset from Zetaris",
+        "label": "Zetaris Data Preparation Studio Connector",
 
         // description: longer string to help end users understand what this dataset type is
         "description": "",
