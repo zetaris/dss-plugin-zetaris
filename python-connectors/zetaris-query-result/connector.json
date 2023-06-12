@@ -42,6 +42,13 @@
             "description": "Example: SELECT c_name, c_custkey FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
             "type": "TEXTAREA",
             "mandatory" : true
+        },
+        {
+            "name": "pageLimit",
+            "label": "Enter the no. of records per page",
+            "description": "No. of records per page for preview",
+            "type": "INT",
+            "mandatory" : false
         }
     ]
 }
