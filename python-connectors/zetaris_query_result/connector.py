@@ -15,7 +15,7 @@ from numpy import isnan
 from zstr_session import ZstrSession
 
 import dataiku
-from dataiku.connector import Connector ,CustomDatasetWriter
+from dataiku.connector import Connector
 
 import json
 
@@ -26,18 +26,6 @@ logger = logging.getLogger()
 
 
 class CustomExporter(Connector):
-    """
-    The methods will be called like this:
-       __init__
-       open
-       write_row
-       write_row
-       write_row
-       ...
-       write_row
-       close
-    """
-
     def __init__(self, config):
         """
         :param config: the dict of the configuration of the object
@@ -51,7 +39,7 @@ class CustomExporter(Connector):
         # Plugin settings
         self.QUERY = self.config.get("query", "")
         if self.QUERY.split(' ', 1)[0] != "SELECT" :
-            raise Exception("This connector you are using only supports SELECT queries. Unfortunately , the query you have attempted is not supported by the connector.")
+            raise ValueError("This connector you are using only supports SELECT queries. Unfortunately , the query you have attempted is not supported by the connector.")
         self.RESULT_FORMAT = self.config.get("result_format")
         self.base_url = config["zetaris_api"].get("server_url", None)
         self.username = config["zetaris_api"].get("username", None)
