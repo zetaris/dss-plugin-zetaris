@@ -63,6 +63,13 @@
             "type": "STRING",
             "description": "This URL overrides what is defined in the plugin's parameters section. It must end with \"zetaris.com\"",
             "mandatory" : true
+        },
+        {
+            "name": "pageLimit",
+            "label": "Enter the no. of records per page",
+            "description": "No. of records per page for preview",
+            "type": "STRING",
+            "mandatory" : false
         }
     ]
 }
