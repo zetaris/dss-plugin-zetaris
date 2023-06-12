@@ -17,7 +17,7 @@ import pandas as pd
 class ZstrSession(object):
     def __init__( self, server_url, username, password ):
         if not server_url:
-            raise Exception("No valid URL to the for Microstrategy server has been selected")
+            raise Exception("Invalid Zetaris URL or incorrect SQL query has been provided")
         self.server_url = server_url
         self.username = username
         self.password = password
@@ -131,6 +131,7 @@ class ZstrSession(object):
             return(data)
         except Exception as e:
             return(e)
+            
 
 
 
