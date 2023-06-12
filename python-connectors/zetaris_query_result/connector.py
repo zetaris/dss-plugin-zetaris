@@ -46,7 +46,7 @@ class CustomExporter(Connector):
         self.password = config["zetaris_api"].get("password", '')
         self.pageLimit =config["zetaris_api"].get("pageLimit", 50)
         Z = ZstrSession(self.base_url, self.username, self.password)
-        self.results = Z.execute_select(self.QUERY) 
+        self.results = Z.execute_select(self.QUERY, selg.pageLimit) 
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(

@@ -118,9 +118,9 @@ class ZstrSession(object):
         except Exception as e:
             print(f"Error occurred while saving data: {str(e)}") 
     
-    def execute_select(self,query_param:str):
+    def execute_select(self,query_param:str, pageLimit:int):
         try:
-            pageLimit = 100
+            pageLimit = pagelimit
             x = self.open_sql_query(query_param,pageLimit)
             data = x['records']
             query_token = x['queryToken']
