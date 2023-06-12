@@ -21,7 +21,7 @@ import json
 
 from collections import OrderedDict
 
-logging.basicConfig(level=logging.INFO, format='dss-plugin-microstrategy %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='dss-plugin-zetaris %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
 
@@ -86,14 +86,6 @@ class CustomExporter(Connector):
             return processed_data
 
 
-    def get_writer(self, dataset_schema=None, dataset_partitioning=None,
-                         partition_id=None):
-        if self.result_format == 'json':
-
-            raise Exception('JSON format not supported in write mode')
-
-        return MyCustomDatasetWriter(self.config, self, dataset_schema, dataset_partitioning, partition_id)
-
 
 
     def get_partitioning(self):
@@ -110,18 +102,6 @@ class CustomExporter(Connector):
 
     def get_records_count(self, partitioning=None, partition_id=None):
         raise Exception("unimplemented")
- 
-
-class MyCustomDatasetWriter(CustomDatasetWriter):
-    def __init__(self, config, parent, dataset_schema, dataset_partitioning, partition_id):
-        CustomDatasetWriter.__init__(self)
-        self.parent = parent
-        self.config = config
-        self.dataset_schema = dataset_schema
-        self.dataset_partitioning = dataset_partitioning
-        self.partition_id = partition_id
-        self.buffer = []
-
 
 
     def write_row(self, row):

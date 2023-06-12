@@ -7,17 +7,8 @@
         "author": "Zetaris (Raina Thomas, Harshal Shah)",
         "icon": "icon-bolt",
         "licenseInfo": "Apache Software License",
-        "supportLevel": "TIER2_SUPPORT",
-        "url": "www.zetaris.com",
+        "supportLevel": "PARTNER_SUPPORTED",
+        "url": "https://www.dataiku.com/product/plugins/zetaris",
         "tags": ["Connector", "Data Preparation"]
-    },
-    "params": [
-        {
-            "name": "base_url",
-            "label": "Zetaris API URL",
-            "type": "STRING",
-            "description": "This URL must end with \"/zetaris.com\"",
-            "mandatory": true
-        }
-    ]
+    }
 }
