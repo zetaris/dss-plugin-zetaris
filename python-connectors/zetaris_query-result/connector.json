@@ -42,22 +42,6 @@
             "description": "Example: SELECT c_name, c_custkey FROM AZURE_MSSQL.CUSTOMER ORDER BY c_name ASC",
             "type": "TEXTAREA",
             "mandatory" : true
-        },
-        {
-            "name": "recLimitFlag",
-            "label": "Would you like to access limited records?",
-            "description": "Untick to access all records",
-            "type": "BOOLEAN",
-            "defaultValue": true,
-            "mandatory" : true
-        },
-        {
-            "name": "recordLimit",
-            "label": "Enter the record limit",
-            "description": "Limit the number of records for the dataset",
-            "type": "INT",
-            "defaultValue": 1,
-            "mandatory" : false
         }
     ]
 }
