@@ -65,6 +65,7 @@ class CustomExporter(Connector):
                       partition_id=None, records_limit=-1,results=None):
         Z = ZstrSession(self.base_url, self.username, self.password)
         final_query = self.QUERY +' LIMIT ' + self.recordLimit
+        print(final_query)
         self.results = Z.execute_select(final_query) 
         if results is None:
             results = self.results
