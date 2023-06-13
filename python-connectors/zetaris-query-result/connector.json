@@ -54,7 +54,7 @@
         {
             "name": "recordLimit",
             "label": "Enter the record limit",
-            "description": "Limit the number of records for preview",
+            "description": "Limit the number of records for the dataset",
             "type": "INT",
             "defaultValue": 1,
             "mandatory" : false
