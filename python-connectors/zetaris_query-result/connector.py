@@ -44,9 +44,6 @@ class CustomExporter(Connector):
         self.base_url = config["zetaris_api"].get("server_url", None)
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
-        self.recordLimit = self.config.get("recordLimit", 1)
-        self.recLimitFlag = self.config.get("recLimitFlag", None)
-
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(
@@ -66,9 +63,8 @@ class CustomExporter(Connector):
                       partition_id=None, records_limit=-1,results=None):
         Z = ZstrSession(self.base_url, self.username, self.password)
         final_query = self.QUERY
-        if self.recLimitFlag == 1:
-            final_query = self.QUERY +' LIMIT ' + str(self.recordLimit)
-        print(final_query)
+        if records_limit > 0:
+            final_query = self.QUERY +' LIMIT ' + str(records_limit)
         self.results = Z.execute_select(final_query) 
         if results is None:
             results = self.results
