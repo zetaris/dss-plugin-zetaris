@@ -38,7 +38,7 @@ class CustomExporter(Connector):
         logger.info("Starting Zetaris exporter v1.1.0")
         # Plugin settings
         self.QUERY = self.config.get("query", "")
-        if self.QUERY.split(' ', 1)[0] != "SELECT" :
+        if str(self.QUERY).upper().strip().split(' ', 1)[0] != "SELECT" :
             raise ValueError("This connector you are using only supports SELECT queries. Unfortunately , the query you have attempted is not supported by the connector.")
         self.RESULT_FORMAT = self.config.get("result_format")
         self.base_url = config["zetaris_api"].get("server_url", None)
