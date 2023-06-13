@@ -120,7 +120,7 @@ class ZstrSession(object):
     
     def execute_select(self,query_param:str, pageLimit:int):
         try:
-            pageLimit = pagelimit
+            pageLimit = pageLimit
             x = self.open_sql_query(query_param,pageLimit)
             data = x['records']
             query_token = x['queryToken']
