@@ -46,7 +46,7 @@
         {
             "name": "recLimitFlag",
             "label": "Would you like to preview limited records?",
-            "description": "Choose True/False",
+            "description": "Untick to access all records",
             "type": "BOOLEAN",
             "defaultValue": true,
             "mandatory" : true
