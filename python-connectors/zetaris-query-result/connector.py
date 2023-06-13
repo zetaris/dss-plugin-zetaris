@@ -44,7 +44,7 @@ class CustomExporter(Connector):
         self.base_url = config["zetaris_api"].get("server_url", None)
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
-        self.pageLimit =config["zetaris_api"].get("pageLimit", None)
+        self.pageLimit =self.config.get("pageLimit", "")
         Z = ZstrSession(self.base_url, self.username, self.password)
         self.results = Z.execute_select(self.QUERY, self.pageLimit) 
 
