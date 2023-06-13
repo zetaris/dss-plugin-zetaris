@@ -67,7 +67,7 @@ class CustomExporter(Connector):
         Z = ZstrSession(self.base_url, self.username, self.password)
         final_query = self.QUERY
         if self.recLimitFlag == true:
-        final_query = self.QUERY +' LIMIT ' + str(self.recordLimit)
+            final_query = self.QUERY +' LIMIT ' + str(self.recordLimit)
         print(final_query)
         self.results = Z.execute_select(final_query) 
         if results is None:
