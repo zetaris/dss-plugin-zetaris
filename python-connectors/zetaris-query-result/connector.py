@@ -79,7 +79,8 @@ class CustomExporter(Connector):
                     processed_value = value
                     processed_row[key] = processed_value
                 processed_data.append(processed_row)
-            yield processed_data
+            
+            processed_data
 
 
 
