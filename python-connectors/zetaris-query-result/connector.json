@@ -48,7 +48,7 @@
             "label": "Enter the no. of records per page",
             "description": "No. of records per page for preview",
             "type": "STRING",
-            "mandatory" : false
+            "mandatory" : true
         }
     ]
 }
