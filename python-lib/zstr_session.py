@@ -125,9 +125,9 @@ class ZstrSession(object):
             data = x['records']
             query_token = x['queryToken']
             max_pages = x['totalPages']
-            for i in range(2,max_pages+1):
-                page_data=self.page_sql_query(query_token,pageLimit,i)
-                data += page_data['records']
+#            for i in range(2,max_pages+1):
+#                page_data=self.page_sql_query(query_token,pageLimit,i)
+#                data += page_data['records']
             return(data)
         except Exception as e:
             return(e)
