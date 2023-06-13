@@ -44,7 +44,7 @@
             "mandatory" : true
         },
         {
-            "name": "pageLimit",
+            "name": "recordLimit",
             "label": "Enter the no. of records per page",
             "description": "No. of records per page for preview",
             "type": "INT",
