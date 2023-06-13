@@ -45,7 +45,7 @@ class CustomExporter(Connector):
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
         print('This is above the record limit')
-        self.recordLimit = self.config.get("recordLimit", "1")
+        self.recordLimit = self.config.get("recordLimit", 1)
         print('This is the record limit' + self.recordLimit)
 
         if not (self.username and self.base_url):
@@ -65,7 +65,7 @@ class CustomExporter(Connector):
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1,results=None):
         Z = ZstrSession(self.base_url, self.username, self.password)
-        final_query = self.QUERY +' LIMIT ' + self.recordLimit
+        final_query = self.QUERY +' LIMIT ' + str(self.recordLimit)
         print(str(self.recordLimit))
         print(final_query)
         self.results = Z.execute_select(final_query) 
