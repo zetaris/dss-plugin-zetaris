@@ -45,7 +45,7 @@ class CustomExporter(Connector):
         self.username = config["zetaris_api"].get("username", None)
         self.password = config["zetaris_api"].get("password", '')
         self.recordLimit =self.config.get("recordLimit", "")
-        print(self.recordLimit)
+        print('This is the record limit' + self.recordLimit)
 
         if not (self.username and self.base_url):
             logger.error('Connection params: {}'.format(
