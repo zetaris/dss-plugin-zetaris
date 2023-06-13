@@ -66,7 +66,6 @@ class CustomExporter(Connector):
                       partition_id=None, records_limit=-1,results=None):
         Z = ZstrSession(self.base_url, self.username, self.password)
         final_query = self.QUERY
-        print(self.recLimitFlag)
         if self.recLimitFlag == 1:
             final_query = self.QUERY +' LIMIT ' + str(self.recordLimit)
         print(final_query)
