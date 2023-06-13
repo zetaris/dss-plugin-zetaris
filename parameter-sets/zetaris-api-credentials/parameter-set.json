@@ -61,6 +61,7 @@
             "name": "server_url",
             "label": "Zetaris API URL",
             "type": "STRING",
+            "default": "1",
             "description": "This URL overrides what is defined in the plugin's parameters section. It must end with \"zetaris.com\"",
             "mandatory" : true
         }
